@@ -3,7 +3,7 @@
         <div class="card card-container">
             <img
             id="profile-img"
-            src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
+            src="@/assets/profile-pic.png"
             class="profile-img-card"
             />
             <form name="form" @submit.prevent="handleRegister">
@@ -69,7 +69,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <button class="btn btn-primary btn-block">Sign Up</button>
+                        <button class="btn btn-primary btn-block">S'enregistrer</button>
                     </div>
                 </div>
             </form>
@@ -132,10 +132,15 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss">
 label {
   display: block;
   margin-top: 10px;
+  color: #042255;
+  text-decoration: underline;
+}
+input{
+  background-color: #04225533;
 }
 
 .card-container.card {
@@ -144,21 +149,33 @@ label {
 }
 
 .card {
-  background-color: #f7f7f7;
+  background-color: #FFF;
   padding: 20px 25px 30px;
   margin: 0 auto 25px;
   margin-top: 50px;
   -moz-border-radius: 2px;
   -webkit-border-radius: 2px;
-  border-radius: 2px;
+  border: solid 5px #042255;
+  border-radius: 25px;
   -moz-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
   -webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
   box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
 }
 
+button{
+  background-color: #F64C71;
+  border: none;
+  transition: all .5s;
+  transition-timing-function: cubic-bezier(.2, 3, .4, 1);
+  &:hover{
+    transform: scale(1.1, 1.1);
+    background-color: #F64C71;
+  }
+}
+
 .profile-img-card {
-  width: 96px;
-  height: 96px;
+  width: 120px;
+  height: 120px;
   margin: 0 auto 10px;
   display: block;
   -moz-border-radius: 50%;

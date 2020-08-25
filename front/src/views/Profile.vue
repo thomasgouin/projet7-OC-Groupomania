@@ -7,25 +7,36 @@
   <div class="container">
     <header class="jumbotron">
       <h3>
-        <strong>{{currentUser.firstname}}{{currentUser.lastname}}</strong> Profile
+        <strong>{{currentUser.firstname}} {{currentUser.lastname}}</strong>
       </h3>
+      <div class="profile-container">
+        <img
+        id="profile-img"
+        src="@/assets/profile-pic.png"
+        class="profile-img-card"
+        />
+        <div class="profile-info">
+          <p>
+          <strong>Id:</strong><br/>
+          {{currentUser.id}}
+          </p>
+          <p>
+            <strong>Email:</strong><br/>
+            {{currentUser.email}}
+          </p>
+          <strong>Authorities:</strong><br/>
+          <ul>
+            <li v-for="(role,index) in currentUser.roles" :key="index">{{role}}</li>
+          </ul>
+        </div>
+      </div>
     </header>
+    <!--
     <p>
       <strong>Token:</strong>
       {{currentUser.accessToken.substring(0, 20)}} ... {{currentUser.accessToken.substr(currentUser.accessToken.length - 20)}}
     </p>
-    <p>
-      <strong>Id:</strong>
-      {{currentUser.id}}
-    </p>
-    <p>
-      <strong>Email:</strong>
-      {{currentUser.email}}
-    </p>
-    <strong>Authorities:</strong>
-    <ul>
-      <li v-for="(role,index) in currentUser.roles" :key="index">{{role}}</li>
-    </ul>
+    -->
   </div>
 </template>
 
@@ -47,3 +58,25 @@ export default {
   }
 };
 </script>
+
+<style lang="scss">
+.jumbotron{
+  max-width: 450px;
+  background-color: #fff;
+  border-radius: 25px;
+  
+}
+img{
+  width: 120px;
+
+}
+strong{
+  color:#F64C71; 
+}
+.profile-info{
+  border: solid 3px #04225533;
+  border-radius: 15px;
+  margin-top: 20px;
+  padding-left: 10px;
+}
+</style>

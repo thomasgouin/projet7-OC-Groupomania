@@ -1,29 +1,27 @@
 <template>
   <div id="app">
-    <nav class="navbar navbar-expand navbar-dark bg-dark">
-      <a href class="navbar-brand" @click.prevent>Groupomania</a>
+    <nav class="navbar navbar-expand navbarGroupomania">
+      <router-link to="/home">
+        <img src="@/assets/Logo-blanc.png" alt="Logo de l'entreprise Groupomania en blanc" class="logo-header">
+      </router-link>
       <div class="navbar-nav mr-auto">
-        <li class="nav-item">
-          <router-link to="/home" class="nav-link">
-            <font-awesome-icon icon="home" />Home
-          </router-link>
-        </li>
+        
         <li v-if="showAdminBoard" class="nav-item">
-          <router-link to="/admin" class="nav-link">Admin Board</router-link>
+          <router-link to="/admin" class="nav-link navbarGroupomania__link">Admin</router-link>
         </li>
         <li class="nav-item">
-          <router-link v-if="currentUser" to="/user" class="nav-link">User</router-link>
+          <router-link v-if="currentUser" to="/user" class="nav-link navbarGroupomania__link" >User</router-link>
         </li>
       </div>
 
       <div v-if="!currentUser" class="navbar-nav ml-auto">
         <li class="nav-item">
-          <router-link to="/register" class="nav-link">
+          <router-link to="/register" class="nav-link navbarGroupomania__link">
             <font-awesome-icon icon="user-plus" />S'enregistrer
           </router-link>
         </li>
         <li class="nav-item">
-          <router-link to="/login" class="nav-link">
+          <router-link to="/login" class="nav-link navbarGroupomania__link">
             <font-awesome-icon icon="sign-in-alt" />Se connecter
           </router-link>
         </li>
@@ -31,14 +29,14 @@
 
       <div v-if="currentUser" class="navbar-nav ml-auto">
         <li class="nav-item">
-          <router-link to="/profile" class="nav-link">
+          <router-link to="/profile" class="nav-link navbarGroupomania__link">
             <font-awesome-icon icon="user" />
-            {{ currentUser.firstname }} {{ currentUser.lastname }}
+            {{ currentUser.firstname }}
           </router-link>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href @click.prevent="logOut">
-            <font-awesome-icon icon="sign-out-alt" />Se déconnecter
+          <a class="nav-link navbarGroupomania__link" href @click.prevent="logOut">
+            <font-awesome-icon icon="sign-out-alt" />Deconnexion
           </a>
         </li>
       </div>
@@ -72,3 +70,28 @@ export default {
   }
 };
 </script>
+<style lang="scss">
+.navbarGroupomania{
+  background-color: #042255;
+  border-bottom: solid 4px #F64C71;
+  &__link{
+    color: #FFD7D7;
+    &:hover{
+      color: #F64C71;
+    }
+  }
+}
+.logo-header{
+  width: 80px;
+}
+@media screen and (min-width: 500px){
+  .logo-header{
+    width: 150px;
+  }
+}
+@media screen and (min-width: 820px){
+  .logo-header{
+    width: 200px;
+  }
+}
+</style>
