@@ -5,32 +5,43 @@ const Op = db.Sequelize.Op;
 
 // Crée et enregistre une nouvelle publication 
 exports.create = (req, res) => {
-    
-    if (!req.body.title) {
-        res.status(400).send({
-          message: "Content can not be empty!"
-        });
-        return;
-      }
-    
-      // Create a Tutorial
-      const publication = {
-        title: req.body.title,
-        attachment: req.body.attachment,
-        userId: req.body.userId
-      };
-    
-      // Save Tutorial in the database
-      Publication.create(publication)
-        .then(data => {
-          res.send(data);
+    const id = req.body.id
+    let attachmentURL
+    //identifier qui créé le message
+    User.findOne({
+        attributes: ['id', 'email', 'fisrname', 'lastname'],
+        where: { id: id }
+    })
+        .then(user => {
+            if (user !== null) {
+                //Récupération du corps du post
+                let content = req.body.content;
+                if (req.file != undefined) {
+                    attachmentURL = `${req.protocol}://${req.get('host')}/images/${req.file.filename}`;
+                }
+                else {
+                    attachmentURL == null
+                };
+                if ((content == 'null' && attachmentURL == null)) {
+                    res.status(400).json({ error: 'Rien à publier' })
+                } else {
+                    Publication.create({
+                        title: content,
+                        attachement: attachmentURL,
+                        UserId: user.id
+                    })
+                        .then((newPost) => {
+                            res.status(201).json(newPost)
+                        })
+                        .catch((err) => {
+                            res.status(500).json(err)
+                        })
+                };
+            } else {
+                res.status(400).json(error);
+            }
         })
-        .catch(err => {
-          res.status(500).send({
-            message:
-              err.message || "Some error occurred while creating the publication."
-          });
-        });
+        .catch(error => res.status(500).json(error));
     
 };
 

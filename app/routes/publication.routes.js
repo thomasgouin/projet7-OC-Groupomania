@@ -1,3 +1,6 @@
+
+const { authJwt } = require("../middlewares");
+
 module.exports = app => {
     const publications = require("../controllers/publication.controller");
     const multer = require('../middlewares/multer-config');
