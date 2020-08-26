@@ -5,6 +5,7 @@ exports.allAccess = (req, res) => {
   };
 //Permet l'accès aux utilisateurs identifés
 exports.userBoard = (req, res) => {
+    
     res.status(200).send("User Content.");
 };
 //Permet l'accès aux administrateurs
