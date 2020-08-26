@@ -8,14 +8,13 @@
         </div>
         <div class="publication__main">
             <p class="publication__main__texte">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-                Ad minus quisquam tenetur laborum qui nostrum ipsum explicabo omnis minima
+                {{publication.title}} 
             </p>
             <img src="@/assets/Logo-rouge.png" alt="Image ou git publiée par un utilisateur" class="publication__main__img">
         </div>
         <div class="publication__footer">
             <p class="publication__footer__date">
-                25/08/2020
+                {{publication.createdAt}}
             </p>
             <div class="publication__footer__social">
                 <img src="@/assets/comment-solid.png" alt="icone pour les commentaires" class="icones-social">
@@ -26,18 +25,31 @@
 
 </template>
 <script>
+import {mapState} from 'vuex';
 export default {
     name:"Publication",
     components: {},
     data(){
         return {}
-    }
+    },
+    computed:{
+        ...mapState(["publications"])
+    },
+    props: {
+        publication: {
+            type:Object,
+            required: true
+        }
+    },
 };
 </script>
 <style lang="scss" >
 
 .publication{
     background-color: #ffff;
+    border: solid 2px #042255;
+    border-radius: 10px;
+    margin-bottom: 10px;
     &__header{
         display: flex;
         justify-content: space-between;
@@ -57,7 +69,6 @@ export default {
         align-items: center;
         &__img{
             max-width: 270px;
-            border: solid 1px #042255;
         }
     }
     &__footer{

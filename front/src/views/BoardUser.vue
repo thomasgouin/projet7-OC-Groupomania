@@ -1,33 +1,75 @@
 <template>
   <div class="container">
     <header class="jumbotron">
-      <h3>{{content}}</h3>
+      <button @click="goToPublish" class="btn btn-primary btn-block button">Créer une publication</button>
+      <Publication v-for="publication in publications" :key="publication.id" :publication="publication" @infosPublication="setDataInPublication"/>
     </header>
+    
   </div>
 </template>
 
 <script>
-import UserService from '../services/user.service';
+import {mapState} from 'vuex';
+import Publication from '../components/Publication';
 
 export default {
   name: 'User',
-  data() {
-    return {
-      content: ''
-    };
+  components: {
+    Publication
   },
-  mounted() {
-    UserService.getUserBoard().then(
-      response => {
-        this.content = response.data;
-      },
-      error => {
-        this.content =
-          (error.response && error.response.data) ||
-          error.message ||
-          error.toString();
+  data(){
+    return {
+      publication:{
+        id: "",
+        title: "",
+        attachment:"",
+        userId:"",
+        createdAt:"",
       }
-    );
+    }
+  },
+  computed: {
+    ...mapState([
+      'publications'
+    ])
+  },
+  methods: {
+    setDataInPublication(payload){
+      this.publication = payload.publication;
+    },
+    goToPublish(){
+      this.$router.push('/publier');
+    }
+  },
+  mounted(){
+    this.$store.dispatch('loadPublications')
   }
 };
+
 </script>
+
+
+
+
+
+<style lang="scss">
+.container{
+  display: flex;
+  justify-content: center;
+}
+.jumbotron{
+  background-color: #fff;
+  max-width: 500px;
+}
+.button{
+  background-color: #F64C71;
+  border: none;
+  transition: all .5s;
+  transition-timing-function: cubic-bezier(.2, 3, .4, 1);
+  margin-bottom: 20px;
+  &:hover{
+    transform: scale(1.1, 1.1);
+    background-color: #F64C71;
+  }
+}
+</style>

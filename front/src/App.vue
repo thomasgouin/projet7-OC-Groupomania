@@ -5,12 +5,8 @@
         <img src="@/assets/Logo-blanc.png" alt="Logo de l'entreprise Groupomania en blanc" class="logo-header">
       </router-link>
       <div class="navbar-nav mr-auto">
-        
-        <li v-if="showAdminBoard" class="nav-item">
-          <router-link to="/admin" class="nav-link navbarGroupomania__link">Admin</router-link>
-        </li>
         <li class="nav-item">
-          <router-link v-if="currentUser" to="/user" class="nav-link navbarGroupomania__link" >User</router-link>
+          <router-link v-if="currentUser" to="/user" class="nav-link navbarGroupomania__link" >wall</router-link>
         </li>
       </div>
 
@@ -36,7 +32,7 @@
         </li>
         <li class="nav-item">
           <a class="nav-link navbarGroupomania__link" href @click.prevent="logOut">
-            <font-awesome-icon icon="sign-out-alt" />Deconnexion
+            <font-awesome-icon icon="sign-out-alt" />Logout
           </a>
         </li>
       </div>
@@ -49,8 +45,10 @@
 </template>
 
 <script>
+
 export default {
   computed: {
+
     currentUser() {
       return this.$store.state.auth.user;
     },
@@ -58,7 +56,6 @@ export default {
       if (this.currentUser && this.currentUser.roles) {
         return this.currentUser.roles.includes('ROLE_ADMIN');
       }
-
       return false;
     },
   },
@@ -67,7 +64,8 @@ export default {
       this.$store.dispatch('auth/logout');
       this.$router.push('/login');
     }
-  }
+    
+  },
 };
 </script>
 <style lang="scss">
