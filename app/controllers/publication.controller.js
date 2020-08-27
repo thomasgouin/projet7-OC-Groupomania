@@ -11,10 +11,9 @@ exports.create = (req, res) => {
     User.findOne({
         attributes: ['id', 'email', 'firstname', 'lastname'],
         where: { id: id }
-        
+
     })
         .then(user => {
-    
             if (user !== null) {
                 //Récupération du corps du post
                 let title = req.body.title;
@@ -26,19 +25,20 @@ exports.create = (req, res) => {
                 else {
                     attachmentURL == null
                 }
-                if ((content == 'null' && attachmentURL == null)) {
-                    res.status(400).json({ error: 'Rien à publier' })
-                } else {
+                if (title !== 'null' && attachmentURL !== null) {
+                    console.log(attachmentURL)
+                    console.log(title)
                     const publication = {
                         title: title,
                         attachment: attachmentURL,
                         userId: id
-                    };
+                    }
                     console.log(publication);
 
                     Publication.create(publication)
                         .then((data) => {
                             res.status(201).json(data)
+                            
                         })
                         .catch((err) => {
                             res.status(500).json(err)
@@ -58,7 +58,9 @@ exports.create = (req, res) => {
 exports.findAll = (req, res) => {
     const userid = req.body.userid;
     let condition = userid ? {userid: {[Op.like]: `%${userid}%`}} : null;
-    Publication.findAll({where: condition})
+    Publication.findAll({
+        where: condition,
+    })
         .then(data =>{
             res.send(data);
         })

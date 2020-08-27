@@ -63,6 +63,7 @@ export default {
       axios.post('http://localhost:8081/api/publications', formData,{})
         .then((res)=>{
           console.log(res)
+          this.$router.push('/user');
         });
     },
 

@@ -44,7 +44,7 @@ db.user.hasMany(db.publication, {as:"publications"});
 /*db.publication.belongsTo(db.user,{
   foreignKey:"user_id",
   as: "user",
-});*/
+})*/
 
 db.ROLES = ["user", "admin"];
 

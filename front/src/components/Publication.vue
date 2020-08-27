@@ -10,7 +10,7 @@
             <p class="publication__main__texte">
                 {{publication.title}} 
             </p>
-            <img src="@/assets/Logo-rouge.png" alt="Image ou git publiée par un utilisateur" class="publication__main__img">
+            <img :src="publication.attachment" alt="Image ou gif publiée par un utilisateur" class="publication__main__img">
         </div>
         <div class="publication__footer">
             <p class="publication__footer__date">
@@ -68,7 +68,7 @@ export default {
         flex-direction: column;
         align-items: center;
         &__img{
-            max-width: 270px;
+            width: 300px;
         }
     }
     &__footer{
