@@ -13,7 +13,7 @@
       <div v-if="!currentUser" class="navbar-nav ml-auto">
         <li class="nav-item">
           <router-link to="/register" class="nav-link navbarGroupomania__link">
-            <font-awesome-icon icon="user-plus" />S'enregistrer
+            <font-awesome-icon icon="user-plus" />S'inscrire
           </router-link>
         </li>
         <li class="nav-item">

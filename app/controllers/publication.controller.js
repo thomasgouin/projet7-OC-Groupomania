@@ -9,29 +9,36 @@ exports.create = (req, res) => {
     let attachmentURL
     //identifier qui créé le message
     User.findOne({
-        attributes: ['id', 'email', 'fisrname', 'lastname'],
+        attributes: ['id', 'email', 'firstname', 'lastname'],
         where: { id: id }
+        
     })
         .then(user => {
+    
             if (user !== null) {
                 //Récupération du corps du post
-                let content = req.body.content;
+                let title = req.body.title;
+                
                 if (req.file != undefined) {
                     attachmentURL = `${req.protocol}://${req.get('host')}/images/${req.file.filename}`;
+                    
                 }
                 else {
                     attachmentURL == null
-                };
+                }
                 if ((content == 'null' && attachmentURL == null)) {
                     res.status(400).json({ error: 'Rien à publier' })
                 } else {
-                    Publication.create({
-                        title: content,
-                        attachement: attachmentURL,
-                        UserId: user.id
-                    })
-                        .then((newPost) => {
-                            res.status(201).json(newPost)
+                    const publication = {
+                        title: title,
+                        attachment: attachmentURL,
+                        userId: id
+                    };
+                    console.log(publication);
+
+                    Publication.create(publication)
+                        .then((data) => {
+                            res.status(201).json(data)
                         })
                         .catch((err) => {
                             res.status(500).json(err)

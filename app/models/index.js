@@ -40,12 +40,12 @@ db.user.belongsToMany(db.role, {
 });
 
 db.user.hasMany(db.publication, {as:"publications"});
-/*
-db.publication.belongsTo(db.user,{
+
+/*db.publication.belongsTo(db.user,{
   foreignKey:"user_id",
   as: "user",
-});
-*/
+});*/
+
 db.ROLES = ["user", "admin"];
 
 module.exports = db;

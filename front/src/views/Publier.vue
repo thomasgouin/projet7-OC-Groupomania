@@ -2,7 +2,7 @@
   <div>
     <div class="block-post w-75 mt-5">
       <h3 class="mt-2"> Créer une Publication </h3>
-      <form enctype="multipart/form-data" action="/create" method="post">
+      <form enctype="multipart/form-data" action="/create" method="post" @submit.prevent="sendPostData">
         <div class="input-group ">
           <label for="title">- Que voulez-vous nous dire ? -</label>
           <br />
@@ -11,10 +11,17 @@
         
         <div>
             <div class="attachment"> Télécharger une image
-                <input name="attachment" placeholder="Choisir un fichier" id="attachment" type="file" class="inputFile" accept="image/*">
+                <input 
+                  name="attachment" 
+                  placeholder="Choisir un fichier" 
+                  id="attachment" 
+                  type="file" 
+                  class="inputFile" 
+                  @change="onFileUpload"
+                  accept="image/*">
             </div>
         </div>
-        <button type="submit" @click.prevent="createPublication" class="btn btn-secondary btn-poster mb-3 mt-3">Poster</button>
+        <button type="submit" class="btn btn-secondary btn-poster mb-3 mt-3">Poster</button>
         <span id='msgReturnAPI' class="mx-3">{{msgError}}</span>
       </form>
     </div>
@@ -22,7 +29,6 @@
 </template>
 
 <script>
-// import d'axios pour les requêtes et de la bibliothèque vuex
 
 import axios from "axios";
 import {mapState} from 'vuex';
@@ -32,10 +38,9 @@ export default {
   data() {
     return {
       contentPost: {
-        title: null,
-        postImage: null,
-        imageData: "",
-        userId: this.$store.state.auth.user.id
+        title: "",
+        attachment: null,
+        userId: ""
       },
       msgError: ""
     };
@@ -46,30 +51,21 @@ export default {
     ]),
   },
   methods: {
-        createPublication() {
-        const fd = new FormData();
-        //on déclare une constante FormData pour stocker les infos du Post
-
-        fd.append("attachment", this.contentPost.postImage); // L'image postée
-        fd.append("title", this.contentPost.title); // Le texte posté
-        if (fd.get("attachment") == "null" && fd.get("title") == "null") { 
-            // si il n'y à rien a publier on affiche un texte d'erreur 
-            let msgReturn = document.getElementById('msgReturnAPI')
-            msgReturn.classList.add('text-danger')
-            this.msgError = "Vous devez au moins nous dire quelque chose !!";
-        } else {
-            axios // On effectue la requête grâce à axios et grâce au Token d'identification de l'User
-                .post("http://localhost:8081/api/publications", fd)
-                .then(response => {
-                // Si la requête fonctionne, on recharge la page pour afficher le dernier post dans le Wall
-                if (response) {
-                    window.location.reload();
-                }
-                }) // Sinon, on affiche une erreur de requête
-                .catch(error => (this.msgError = error));
-        }
+    onFileUpload(event){
+      this.attachment = event.target.files[0]
     },
-    
+    sendPostData(){
+      const formData = new FormData();
+      formData.append('title', this.contentPost.title);
+      formData.append('attachment', this.attachment);
+      formData.append('id', this.$store.state.auth.user.id);
+
+      axios.post('http://localhost:8081/api/publications', formData,{})
+        .then((res)=>{
+          console.log(res)
+        });
+    },
+
   }
 };
 </script>

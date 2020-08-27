@@ -69,7 +69,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <button class="btn btn-primary btn-block">S'enregistrer</button>
+                        <button class="btn btn-primary btn-block button">S'enregistrer</button>
                     </div>
                 </div>
             </form>
@@ -132,7 +132,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style  lang="scss">
 label {
   display: block;
   margin-top: 10px;
@@ -162,7 +162,7 @@ input{
   box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
 }
 
-button{
+.button{
   background-color: #F64C71;
   border: none;
   transition: all .5s;
