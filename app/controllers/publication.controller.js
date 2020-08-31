@@ -66,7 +66,6 @@ exports.findAll = (req, res) => {
     })
         .then(data =>{
             res.send(data);
-            console.log(data);
         })
         .catch(err =>{
             res.status(500).send({
@@ -121,28 +120,26 @@ exports.update = (req, res) => {
 
 // Supprime une publication grâce à son id
 exports.delete = (req, res) => {
-    
-    const id = req.params.id;
-    
+    let id = req.params.id
     Publication.destroy({
-        where: { id: id }
+        where: {id:id}
     })
     .then(num => {
-    if (num == 1) {
-        res.send({
-        message: "La publication a été supprimée avec succès"
-        });
-    } else {
-        res.send({
-        message: `Nous ne pouvons supprimer cette publication avec id=${id}.`
-        });
-    }
-    })
-    .catch(err => {
+        if (num == 1) {
+          res.send({
+            message: "Tutorial was deleted successfully!"
+          });
+        } else {
+          res.send({
+            message: `Cannot delete Tutorial with id=${id}. Maybe Tutorial was not found!`
+          });
+        }
+      })
+      .catch(err => {
         res.status(500).send({
-            message: "Nous n'avons pas pu supprimer la publication avec id=" + id
+          message: "Could not delete Tutorial with id=" + id
         });
-    });
-     
-};
+      });
+}
+
 

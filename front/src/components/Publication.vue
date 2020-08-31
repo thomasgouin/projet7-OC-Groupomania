@@ -17,30 +17,43 @@
                 {{publication.createdAt | moment}}
             </p>
             <div class="publication__footer__social">
-                <img src="@/assets/comment-solid.png" alt="icone pour les commentaires" class="icones-social">
+                <button class="button-social"><img src="@/assets/comment-solid.png" alt="icone pour les commentaires" class="icones-social"></button>
+                <button v-if="publication.userId == auth.user.id || auth.user.roles == 'ROLE_ADMIN'" class="button-social" @click="deletePost"><img src="@/assets/trash-alt-regular.png" alt="icone pour la suppression" class="icones-social"></button>
             </div>
-
         </div>
     </div>
 
 </template>
 <script>
 import moment from 'moment';
+import axios from 'axios';
 import {mapState} from 'vuex';
 export default {
     name:"Publication",
     components: {},
     data(){
-        return {}
+        return {
+        }
     },
     computed:{
-        ...mapState(["publications"])
+        ...mapState(["publications","auth"])
     },
     props: {
         publication: {
             type:Object,
             required: true
         }
+    },
+    methods: {
+        deletePost() {
+            console.log(this.auth.user.id)
+            axios
+                .delete(`http://localhost:8081/api/publications/${this.publication.id}`)
+                .then(() => {
+                    window.location.reload();
+                }) // ...Si non on envoi une erreur
+                .catch(error => console.log(error));
+        },
     },
     filters:{
         moment: (date)=>{
@@ -84,13 +97,30 @@ export default {
     }
     &__footer{
         margin-top: 10px;
-        padding: 15px;
+        padding: 5px;
         display: flex;
         justify-content: space-between;
+        align-items: center;
+        &__social{
+            display: flex;
+            justify-content: space-evenly;
+            width: 60%;
+        }
+        &__date{
+            margin-top: 15px;
+
+        }
     }
 }
-.icones-social{
-    max-width: 30px;
+.button-social{
+    border: none;
+    background-color: white;
+    
 }
+.icones-social{
+    max-width: 25px;
+    max-height: 25px;
+}
+
     
 </style>
