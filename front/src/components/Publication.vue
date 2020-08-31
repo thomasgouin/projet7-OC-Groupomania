@@ -3,7 +3,7 @@
         <div class="publication__header">
             <img src="@/assets/profile-pic.png" alt="image de profil par défaut" class="publication__header__img">
             <p class="publication__header__auteur">
-                Thomas Gouin
+                {{publication.user.firstname}} {{publication.user.lastname}}
             </p>
         </div>
         <div class="publication__main">
@@ -14,7 +14,7 @@
         </div>
         <div class="publication__footer">
             <p class="publication__footer__date">
-                {{publication.createdAt}}
+                {{publication.createdAt | moment}}
             </p>
             <div class="publication__footer__social">
                 <img src="@/assets/comment-solid.png" alt="icone pour les commentaires" class="icones-social">
@@ -25,6 +25,7 @@
 
 </template>
 <script>
+import moment from 'moment';
 import {mapState} from 'vuex';
 export default {
     name:"Publication",
@@ -41,6 +42,11 @@ export default {
             required: true
         }
     },
+    filters:{
+        moment: (date)=>{
+            return moment(date).locale('fr').format('LLL');
+        }
+    }
 };
 </script>
 <style lang="scss" >
@@ -52,6 +58,7 @@ export default {
     margin-bottom: 10px;
     &__header{
         display: flex;
+        padding: 15px;
         justify-content: space-between;
         align-items: center;
         margin-bottom: 10px;
@@ -70,9 +77,14 @@ export default {
         &__img{
             width: 300px;
         }
+        &__texte{
+            padding-left: 15px;
+            text-align: left;
+        }
     }
     &__footer{
         margin-top: 10px;
+        padding: 15px;
         display: flex;
         justify-content: space-between;
     }

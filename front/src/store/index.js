@@ -23,7 +23,7 @@ export default new Vuex.Store({
       axios
         .get('http://localhost:8081/api/publications')
         .then(data =>{
-          console.log(data.data);
+          
           let publications = data.data
           commit('SET_PUBLICATIONS', publications)
         })

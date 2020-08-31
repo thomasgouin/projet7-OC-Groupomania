@@ -1,5 +1,5 @@
 
-import PublicationService from '../services/publication.service';
+/*import PublicationService from '../services/publication.service';
 
 export const publication = {
     state: {
@@ -21,4 +21,4 @@ export const publication = {
         }
     },
 
-}
+}*/
