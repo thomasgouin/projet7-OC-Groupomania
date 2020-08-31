@@ -39,12 +39,11 @@ db.user.belongsToMany(db.role, {
   otherKey: "roleId"
 });
 
-db.user.hasMany(db.publication, {as:"publications"});
+db.user.hasMany(db.publication, {
+  foreignKey: 'userId'
+});
 
-/*db.publication.belongsTo(db.user,{
-  foreignKey:"user_id",
-  as: "user",
-})*/
+db.publication.belongsTo(db.user)
 
 db.ROLES = ["user", "admin"];
 

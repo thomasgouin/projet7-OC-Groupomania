@@ -56,13 +56,17 @@ exports.create = (req, res) => {
 
 // Retourne l'ensemble des publications avec une option de filtrage par utilisateur
 exports.findAll = (req, res) => {
-    const userid = req.body.userid;
-    let condition = userid ? {userid: {[Op.like]: `%${userid}%`}} : null;
+    
     Publication.findAll({
-        where: condition,
+        include: [{
+            model: User,
+            attributes: ['lastname', 'firstname']
+        }],
+        order: [['createdAt', 'DESC']]
     })
         .then(data =>{
             res.send(data);
+            console.log(data);
         })
         .catch(err =>{
             res.status(500).send({
