@@ -1,6 +1,7 @@
 const db = require("../models");
 const User = db.user;
 const Publication = db.publication;
+const Comment = db.comments
 const Op = db.Sequelize.Op;
 
 // Crée et enregistre une nouvelle publication 
@@ -58,10 +59,16 @@ exports.create = (req, res) => {
 exports.findAll = (req, res) => {
     
     Publication.findAll({
-        include: [{
-            model: User,
-            attributes: ['lastname', 'firstname']
-        }],
+        include: [
+            {
+                model: User,
+                attributes: ['lastname', 'firstname']
+            },
+            {
+                model: Comment,
+                attributes: ['text', 'userId']
+            }
+        ],
         order: [['createdAt', 'DESC']]
     })
         .then(data =>{

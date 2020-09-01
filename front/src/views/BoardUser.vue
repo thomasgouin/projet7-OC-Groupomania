@@ -12,6 +12,7 @@
 import {mapState} from 'vuex';
 import Publication from '../components/Publication';
 
+
 export default {
   name: 'User',
   components: {

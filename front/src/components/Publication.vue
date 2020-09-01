@@ -17,15 +17,14 @@
                 {{publication.createdAt | moment}}
             </p>
             <div class="publication__footer__social">
-                <button class="button-social"><img src="@/assets/comment-solid.png" alt="icone pour les commentaires" class="icones-social"></button>
                 <button v-if="publication.userId == auth.user.id || auth.user.roles == 'ROLE_ADMIN'" class="button-social" @click="deletePost"><img src="@/assets/trash-alt-regular.png" alt="icone pour la suppression" class="icones-social"></button>
             </div>
         </div>
         <div class="publication__commentaires">
             <input type="text" v-model="textComment" v-on:keyup.enter="createComments" class="publication__commentaires__input" placeholder="un petit commentaire ?">
-            <div class="publication__commentaires__publies">
-                <p class="commentaires__username">Nom et prénom</p>
-                <p class="commentaires__textUser">Ici le texte qui sera à afficher, pourquoi pas sur plusieurs lignes</p>
+            <div v-for="comments in publication.comments" :key="comments" class="publication__commentaires__publies">
+                <p class="commentaires__username">{{comments.userId}}</p>
+                <p class="commentaires__textUser">{{comments.text}}</p>
             </div>
         </div>
     </div>
@@ -44,7 +43,7 @@ export default {
         }
     },
     computed:{
-        ...mapState(["publications","auth"])
+        ...mapState(["publications","auth", ])
     },
     props: {
         publication: {

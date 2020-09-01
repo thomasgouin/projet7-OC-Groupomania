@@ -45,7 +45,7 @@ db.user.hasMany(db.publication, {
 });
 db.publication.belongsTo(db.user)
 
-db.publication.hasMany(db.comments, {as: "comments"})
+db.publication.hasMany(db.comments)
 
 db.comments.belongsTo(db.publication, {
   foreignKey: "publicationId", 
