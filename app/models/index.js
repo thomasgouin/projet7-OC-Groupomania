@@ -27,6 +27,7 @@ db.sequelize = sequelize;
 db.user = require("../models/user.model.js")(sequelize, Sequelize);
 db.role = require("../models/role.model.js")(sequelize, Sequelize);
 db.publication = require("../models/publication.model.js")(sequelize, Sequelize);
+db.comments = require("../models/comments.model.js")(sequelize, Sequelize);
 
 db.role.belongsToMany(db.user, {
   through: "user_roles",
@@ -42,8 +43,22 @@ db.user.belongsToMany(db.role, {
 db.user.hasMany(db.publication, {
   foreignKey: 'userId'
 });
-
 db.publication.belongsTo(db.user)
+
+db.publication.hasMany(db.comments, {as: "comments"})
+
+db.comments.belongsTo(db.publication, {
+  foreignKey: "publicationId", 
+  as: "publication",
+})
+
+db.user.hasMany(db.comments, {
+  foreignKey: 'userId'
+});
+db.comments.belongsTo(db.user)
+
+
+
 
 db.ROLES = ["user", "admin"];
 

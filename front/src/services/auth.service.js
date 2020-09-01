@@ -28,6 +28,7 @@ class AuthService {
     logout() {
         //Nous vidons le localstorage pour le pas garder le token en mémoire
         localStorage.removeItem('user');
+        
     }
 
     register(user) {

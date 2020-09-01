@@ -21,6 +21,13 @@
                 <button v-if="publication.userId == auth.user.id || auth.user.roles == 'ROLE_ADMIN'" class="button-social" @click="deletePost"><img src="@/assets/trash-alt-regular.png" alt="icone pour la suppression" class="icones-social"></button>
             </div>
         </div>
+        <div class="publication__commentaires">
+            <input type="text" v-model="textComment" v-on:keyup.enter="createComments" class="publication__commentaires__input" placeholder="un petit commentaire ?">
+            <div class="publication__commentaires__publies">
+                <p class="commentaires__username">Nom et prénom</p>
+                <p class="commentaires__textUser">Ici le texte qui sera à afficher, pourquoi pas sur plusieurs lignes</p>
+            </div>
+        </div>
     </div>
 
 </template>
@@ -33,6 +40,7 @@ export default {
     components: {},
     data(){
         return {
+            textComment:""
         }
     },
     computed:{
@@ -54,6 +62,20 @@ export default {
                 }) // ...Si non on envoi une erreur
                 .catch(error => console.log(error));
         },
+        createComments(){
+            let dataComments = {
+                text: this.textComment,
+                publicationId: this.publication.id,
+                userId: this.auth.user.id
+            }
+            axios
+                .post('http://localhost:8081/api/commentaires',dataComments)
+                .then((res)=>{
+                    console.log(res)
+                    this.textComment=""
+                });
+        }
+
     },
     filters:{
         moment: (date)=>{
@@ -111,7 +133,32 @@ export default {
 
         }
     }
+    &__commentaires{
+        &__input{
+            background-color: #fff;
+            border: solid 2px #F64C71;
+            border-radius: 25px;
+            width: 90%;
+            margin: 0 5% 5% 5%;
+            padding-left: 5%;
+        }
+        &__publies{
+            background-color: #CCD2DD;
+            width: 90%;
+            margin:0% 5% 5% 5%;
+            border-radius: 25px;
+            padding: 5%;
+        }
+    }
 }
+.commentaires__username{
+    color: #F64C71;
+    margin: 0;
+}
+.commentaires__textUser{
+    margin: 0;
+}
+
 .button-social{
     border: none;
     background-color: white;
