@@ -94,3 +94,36 @@ exports.signin = (req, res) => {
     res.status(500).send({ message: err.message });
     });
 };
+
+exports.delete = (req,res)=>{
+  const id = req.params.id
+  User.findOne({
+    where: {
+      id:id
+    }
+    .then(user=>{
+      if(!user){
+        return res.status(404).send({ message: "L'email n'a pas été trouvé." });
+      }
+      User.destroy({
+        where: {id:id}
+      })
+      .then(num => {
+        if (num == 1) {
+          res.send({
+            message: "L'utilisateur a été supprimé avec succès!"
+          });
+        } else {
+          res.send({
+            message: `Nous n'avons pas pu supprimer l'utilisateur avec l'id=${id}.`
+          });
+        }
+      })
+      .catch(err => {
+        res.status(500).send({
+          message: "Nous n'avons pas pu supprimer l'utilisteur avec l'id" + id
+        });
+      });
+    })
+  })
+}

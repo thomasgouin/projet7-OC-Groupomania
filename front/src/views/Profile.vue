@@ -30,17 +30,16 @@
           </ul>
         </div>
       </div>
+      <button @click="deleteUser" class="deleteUser">
+        Supprimer votre compte
+      </button>
     </header>
-    <!--
-    <p>
-      <strong>Token:</strong>
-      {{currentUser.accessToken.substring(0, 20)}} ... {{currentUser.accessToken.substr(currentUser.accessToken.length - 20)}}
-    </p>
-    -->
+
   </div>
 </template>
 
 <script>
+import axios from 'axios';
 export default {
   name: 'Profile',
   
@@ -48,6 +47,17 @@ export default {
     currentUser() {
       return this.$store.state.auth.user;
     }
+  },
+  methods:{
+    deleteUser() {
+            axios
+                .delete(`http://localhost:8081/api/auth/${this.$store.state.auth.user}`)
+                .then(() => {
+                    this.$store.dispatch('auth/logout');
+                    this.$router.push('/login');
+                }) // ...Si non on envoi une erreur
+                .catch(error => console.log(error));
+        },
   },
   //Ici on utilise l'étape mounted, 
   //puisque l'on a besoin d'attendre l'arrivée des données (utilisateur connecté ou non)
@@ -79,5 +89,20 @@ strong{
   border-radius: 15px;
   margin-top: 20px;
   padding-left: 10px;
+}
+.deleteUser{
+  margin: 5% 0 0 0;
+  height: 40px;
+  width: 100%;
+  border-radius: 25px;
+  background-color: #F64C71;
+  border: none;
+  color: #fff;
+  transition: all .5s;
+  transition-timing-function: cubic-bezier(.2, 3, .4, 1);
+  &:hover{
+    transform: scale(1.1, 1.1);
+    background-color: #F64C71;
+  }
 }
 </style>

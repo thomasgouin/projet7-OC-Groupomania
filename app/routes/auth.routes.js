@@ -28,4 +28,6 @@ module.exports = function(app) {
     //On défini la route pour s'authentifier 
     //puis on appelle la fonction qui va vérifier l'utilisateur, son mot de passe, et enregistrer les données dans un JSON.
     app.post("/api/auth/signin", controller.signin);
+
+    app.delete("/api/auth/:id", controller.delete)
 };

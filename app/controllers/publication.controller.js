@@ -66,7 +66,11 @@ exports.findAll = (req, res) => {
             },
             {
                 model: Comment,
-                attributes: ['text', 'userId']
+                attributes: ['text'],
+                include: {
+                    model: User,
+                    attributes: ['lastname', 'firstname']
+                }
             }
         ],
         order: [['createdAt', 'DESC']]

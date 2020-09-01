@@ -23,7 +23,7 @@
         <div class="publication__commentaires">
             <input type="text" v-model="textComment" v-on:keyup.enter="createComments" class="publication__commentaires__input" placeholder="un petit commentaire ?">
             <div v-for="comments in publication.comments" :key="comments" class="publication__commentaires__publies">
-                <p class="commentaires__username">{{comments.userId}}</p>
+                <p class="commentaires__username">{{comments.user.firstname}} {{comments.user.lastname}}</p>
                 <p class="commentaires__textUser">{{comments.text}}</p>
             </div>
         </div>
@@ -72,6 +72,7 @@ export default {
                 .then((res)=>{
                     console.log(res)
                     this.textComment=""
+                    window.location.reload();
                 });
         }
 
