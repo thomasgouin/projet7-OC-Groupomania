@@ -97,33 +97,37 @@ exports.signin = (req, res) => {
 
 exports.delete = (req,res)=>{
   const id = req.params.id
+  console.log(id);
   User.findOne({
     where: {
       id:id
     }
-    .then(user=>{
-      if(!user){
-        return res.status(404).send({ message: "L'email n'a pas été trouvé." });
-      }
+  })
+  .then(user =>{
+    console.log(user)
+    if (!user) {
+      return res.status(404).send({ message: "L'utilisateur  n'a pas été trouvé." });
+    }
+    else{
       User.destroy({
         where: {id:id}
       })
       .then(num => {
         if (num == 1) {
           res.send({
-            message: "L'utilisateur a été supprimé avec succès!"
+            message: "Tutorial was deleted successfully!"
           });
         } else {
           res.send({
-            message: `Nous n'avons pas pu supprimer l'utilisateur avec l'id=${id}.`
+            message: `Cannot delete Tutorial with id=${id}. Maybe Tutorial was not found!`
           });
         }
       })
       .catch(err => {
         res.status(500).send({
-          message: "Nous n'avons pas pu supprimer l'utilisteur avec l'id" + id
+          message: "Could not delete Tutorial with id=" + id
         });
       });
-    })
+    }
   })
 }

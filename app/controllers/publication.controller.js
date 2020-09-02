@@ -66,10 +66,10 @@ exports.findAll = (req, res) => {
             },
             {
                 model: Comment,
-                attributes: ['text'],
+                attributes: ['text','id'],
                 include: {
                     model: User,
-                    attributes: ['lastname', 'firstname']
+                    attributes: ['lastname', 'firstname', 'id']
                 }
             }
         ],

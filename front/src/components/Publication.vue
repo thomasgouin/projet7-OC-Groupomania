@@ -17,14 +17,19 @@
                 {{publication.createdAt | moment}}
             </p>
             <div class="publication__footer__social">
-                <button v-if="publication.userId == auth.user.id || auth.user.roles == 'ROLE_ADMIN'" class="button-social" @click="deletePost"><img src="@/assets/trash-alt-regular.png" alt="icone pour la suppression" class="icones-social"></button>
+                <button v-if="publication.userId == auth.user.id || auth.user.roles == 'ROLE_ADMIN'" class="button-social" @click="deletePost">
+                    <img src="@/assets/trash-alt-regular.png" alt="icone pour la suppression" class="icones-social">
+                </button>
             </div>
         </div>
         <div class="publication__commentaires">
             <input type="text" v-model="textComment" v-on:keyup.enter="createComments" class="publication__commentaires__input" placeholder="un petit commentaire ?">
-            <div v-for="comments in publication.comments" :key="comments" class="publication__commentaires__publies">
+            <div id=bloc-commentaires v-for="comments in publication.comments" :key="comments.id" class="publication__commentaires__publies">
                 <p class="commentaires__username">{{comments.user.firstname}} {{comments.user.lastname}}</p>
                 <p class="commentaires__textUser">{{comments.text}}</p>
+                <button v-if="comments.user.id == auth.user.id || auth.user.roles == 'ROLE_ADMIN'" class="button-social" @click="deleteComments(comments.id)">
+                    <img src="@/assets/trash-alt-regular.png" alt="suppression d'un commentaire" class="commentaires__trash">
+                </button>
             </div>
         </div>
     </div>
@@ -49,6 +54,10 @@ export default {
         publication: {
             type:Object,
             required: true
+        },
+        comments:{
+            type:Object,
+
         }
     },
     methods: {
@@ -74,7 +83,17 @@ export default {
                     this.textComment=""
                     window.location.reload();
                 });
-        }
+        },
+        deleteComments(id) {
+            console.log(this.publication.comments[0].id)
+            
+            axios
+                .delete(`http://localhost:8081/api/commentaires/${id}`)
+                .then(() => {
+                    window.location.reload();
+                }) // ...Si non on envoi une erreur
+                .catch(error => console.log(error));
+        },
 
     },
     filters:{
@@ -148,6 +167,7 @@ export default {
             margin:0% 5% 5% 5%;
             border-radius: 25px;
             padding: 5%;
+            position: relative;
         }
     }
 }
@@ -157,6 +177,12 @@ export default {
 }
 .commentaires__textUser{
     margin: 0;
+}
+.commentaires__trash{
+    width: 20px;
+    position: absolute;
+    right: 10px;
+    top: 10px;
 }
 
 .button-social{

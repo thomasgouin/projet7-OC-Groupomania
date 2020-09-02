@@ -50,14 +50,15 @@ export default {
   },
   methods:{
     deleteUser() {
-            axios
-                .delete(`http://localhost:8081/api/auth/${this.$store.state.auth.user}`)
-                .then(() => {
-                    this.$store.dispatch('auth/logout');
-                    this.$router.push('/login');
-                }) // ...Si non on envoi une erreur
-                .catch(error => console.log(error));
-        },
+      console.log(this.$store.state.auth.user.id);
+      axios
+          .delete(`http://localhost:8081/api/auth/${this.$store.state.auth.user.id}`)
+          .then(() => {
+              this.$store.dispatch('auth/logout');
+              this.$router.push('/login');
+          }) // ...Si non on envoi une erreur
+          .catch(error => console.log(error));
+    },
   },
   //Ici on utilise l'étape mounted, 
   //puisque l'on a besoin d'attendre l'arrivée des données (utilisateur connecté ou non)

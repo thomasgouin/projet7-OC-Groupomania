@@ -5,11 +5,11 @@ module.exports = app => {
   
     var router = require("express").Router();
   
-    // Route pour créer une nouvelle publication
+    // Route pour créer un nouveau commentaire
     router.post("/", commentaires.createComment);
   
-    // Route pour supprimer une publication
-    //router.delete("/:id", commentaires.delete);
+    // Route pour supprimer un commentaire
+    router.delete("/:id", commentaires.delete);
   
   
     app.use('/api/commentaires', router);
