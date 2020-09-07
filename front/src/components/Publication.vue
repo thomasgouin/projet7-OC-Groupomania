@@ -66,8 +66,7 @@ export default {
             axios
                 .delete(`http://localhost:8081/api/publications/${id}`, {headers: authHeader()})
                 .then(() => {
-                    
-                    //window.location.reload();
+                    this.$store.dispatch('loadPublications')
                 }) // ...Si non on envoi une erreur
                 .catch(error => console.log(error));
         },
@@ -82,7 +81,7 @@ export default {
                 .then((res)=>{
                     console.log(res)
                     this.textComment=""
-                    window.location.reload();
+                    this.$store.dispatch('loadPublications')
                 });
         },
         deleteComments(id) {
@@ -90,7 +89,7 @@ export default {
             axios
                 .delete(`http://localhost:8081/api/commentaires/${id}`,{headers: authHeader()})
                 .then(() => {
-                    window.location.reload();
+                    this.$store.dispatch('loadPublications')
                 }) // ...Si non on envoi une erreur
                 .catch(error => console.log(error));
         },

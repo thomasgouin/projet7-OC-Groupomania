@@ -140,7 +140,7 @@ input{
   padding: 40px 40px;
 }
 
-.card {
+.cardGroupomania {
   background-color: #FFF;
   padding: 20px 25px 30px;
   margin: 0 auto 25px;

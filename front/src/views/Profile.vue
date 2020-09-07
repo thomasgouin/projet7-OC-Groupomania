@@ -5,7 +5,7 @@
 
 <template>
   <div class="container">
-    <header class="jumbotron">
+    <header class="jumbotron jumbotron-profile">
       <h3>
         <strong>{{currentUser.firstname}} {{currentUser.lastname}}</strong>
       </h3>
@@ -17,14 +17,14 @@
         />
         <div class="profile-info">
           <p>
-          <strong>Id:</strong><br/>
+          <strong>Id de l'utilisateur:</strong><br/>
           {{currentUser.id}}
           </p>
           <p>
-            <strong>Email:</strong><br/>
+            <strong>Votre email:</strong><br/>
             {{currentUser.email}}
           </p>
-          <strong>Authorities:</strong><br/>
+          <strong>Votre role :</strong><br/>
           <ul>
             <li v-for="(role,index) in currentUser.roles" :key="index">{{role}}</li>
           </ul>
@@ -72,8 +72,9 @@ export default {
 </script>
 
 <style lang="scss">
-.jumbotron{
-  max-width: 450px;
+.jumbotron-profile{
+  border: solid #042255 3px;
+  max-width: 500px;
   background-color: #fff;
   border-radius: 25px;
   

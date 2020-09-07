@@ -4,10 +4,10 @@
 
 <template>
   <div class="container">
-    <header class="jumbotron">
-      <h3 class="jumbotron__h3">Bienvenue sur AtWork!</h3>
-      <h4 class="jumbotron__h4">L'espace pour les salariés de Groupomania.</h4>
-      <p class="jumbotron__p">
+    <header class=" jumbotron-home">
+      <h3 class="jumbotron-home__h3">Bienvenue sur AtWork!</h3>
+      <h4 class="jumbotron-home__h4">L'espace pour les salariés de Groupomania.</h4>
+      <p class="jumbotron-home__p">
       Une fois connecté au service avec votre mail professionnel, 
       vous aurez accès à un espace de partage de photos et gifs avec vos collègues.
       Nous espérons que ces echanges permettront de mieux connaître vos collègues et 
@@ -43,7 +43,7 @@ export default {
 };
 </script>
 <style lang="scss">
-.jumbotron{
+.jumbotron-home{
   margin-top: 80px;
   background-color: #fff;
   color: #042255;
@@ -51,13 +51,19 @@ export default {
   margin-right: auto;
   border-radius: 25px;
   border: 5px solid #042255;
+  &__h3{
+    color: #F64C71;
+    font-size: 30px;
+    padding: 30px 20px;
+  }
+  &__h4{
+    margin: 0 0 40px 0;
+    padding: 0 20px;
+  }
+  &__p{
+    padding: 0 20px;
+  }
 }
-h3{
-  color: #F64C71;
-  font-size: 30px;
-}
-h4{
-  margin: 20px 0;
-}
+
 
 </style>
