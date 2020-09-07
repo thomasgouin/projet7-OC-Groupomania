@@ -164,30 +164,6 @@ exports.delete = (req, res) => {
             message: "Erreur lors de la recherche de l'utilisateur"
         })
     })
-
-
-
-
-    /*Publication.destroy({
-        where: {id: publicationId}
-    })
-    .then(num => {
-        if (num == 1) {
-          res.send({
-            message: "Tutorial was deleted successfully!"
-          });
-        } else {
-          res.send({
-            message: `Cannot delete Tutorial with id=${id}. Maybe Tutorial was not found!`
-          });
-        }
-      })
-      .catch(err => {
-        res.status(500).send({
-          message: "Could not delete Tutorial with id=" + id
-        });
-      });
-      */
 }
 
 

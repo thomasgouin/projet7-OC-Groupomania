@@ -41,7 +41,8 @@ db.user.belongsToMany(db.role, {
 });
 
 db.user.hasMany(db.publication, {
-  foreignKey: 'userId'
+  foreignKey: 'userId',
+  
 });
 db.publication.belongsTo(db.user)
 
