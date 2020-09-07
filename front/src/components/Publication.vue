@@ -17,7 +17,7 @@
                 {{publication.createdAt | moment}}
             </p>
             <div class="publication__footer__social">
-                <button v-if="publication.userId == auth.user.id || auth.user.roles == 'ROLE_ADMIN'" class="button-social" @click="deletePost">
+                <button v-if="publication.userId == auth.user.id || auth.user.roles == 'ROLE_ADMIN'" class="button-social" @click="deletePost(publication.id)">
                     <img src="@/assets/trash-alt-regular.png" alt="icone pour la suppression" class="icones-social">
                 </button>
             </div>
@@ -39,6 +39,7 @@
 import moment from 'moment';
 import axios from 'axios';
 import {mapState} from 'vuex';
+import authHeader from '../services/auth-header';
 export default {
     name:"Publication",
     components: {},
@@ -61,12 +62,12 @@ export default {
         }
     },
     methods: {
-        deletePost() {
-            console.log(this.auth.user.id)
+        deletePost(id) {
             axios
-                .delete(`http://localhost:8081/api/publications/${this.publication.id}`)
+                .delete(`http://localhost:8081/api/publications/${id}`, {headers: authHeader()})
                 .then(() => {
-                    window.location.reload();
+                    
+                    //window.location.reload();
                 }) // ...Si non on envoi une erreur
                 .catch(error => console.log(error));
         },
@@ -85,10 +86,9 @@ export default {
                 });
         },
         deleteComments(id) {
-            console.log(this.publication.comments[0].id)
             
             axios
-                .delete(`http://localhost:8081/api/commentaires/${id}`)
+                .delete(`http://localhost:8081/api/commentaires/${id}`,{headers: authHeader()})
                 .then(() => {
                     window.location.reload();
                 }) // ...Si non on envoi une erreur

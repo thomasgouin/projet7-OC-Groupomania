@@ -18,6 +18,7 @@ verifyToken = (req, res, next) => {
             });
         }
         req.userId = decoded.id;
+        console.log('dans le middleware' + req.userId)
         next();
     });
 };

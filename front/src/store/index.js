@@ -4,7 +4,6 @@ import axios from 'axios'
 
 
 import { auth } from './auth.module';
-//import { publication } from './publication.module';
 
 
 Vue.use(Vuex, axios)

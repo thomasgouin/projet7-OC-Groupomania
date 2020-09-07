@@ -7,7 +7,7 @@ import authHeader from './auth-header';
 const API_URL = 'http://localhost:8081/api/test/';
 
 //Nous créons une class qui répértorie les fonctions filtrant l'accès aux différentes ressources. 
-//Nous envoyons donc le token d'accès en deuxième paramètre des requêtes axios pour user et admin. 
+//Nous envoyons donc le token d'accès en deuxième paramètre des requêtes axios pour user. 
 
 class UserService {
     
@@ -17,10 +17,6 @@ class UserService {
 
     getUserBoard() {
         return axios.get(API_URL + 'user', { headers: authHeader() });
-    }
-
-    getAdminBoard() {
-        return axios.get(API_URL + 'admin', { headers: authHeader() });
     }
 }
 

@@ -16,11 +16,8 @@ module.exports = app => {
     // Route pour récupérer une publication par son identifiant
     router.get("/:id", publications.findOne);
   
-    // Route pour mettre à jour une publication
-    router.put("/:id",multer, publications.update);
-  
     // Route pour supprimer une publication
-    router.delete("/:id", publications.delete);
+    router.delete("/:id", [authJwt.verifyToken], publications.delete);
   
   
     app.use('/api/publications', router);

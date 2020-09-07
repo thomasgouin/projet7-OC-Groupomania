@@ -1,4 +1,5 @@
 const db = require("../models");
+const Role = db.role;
 const User = db.user;
 const Publication = db.publication;
 const Comment = db.comments
@@ -101,39 +102,56 @@ exports.findOne = (req, res) => {
         });
 };
 
-// Modifie une publication grâce à son id
-exports.update = (req, res) => {
-    
-    const id = req.params.id;
 
-    Publication.update(req.body, {
-        where: { id: id }
-    })
-
-    .then(num => {
-    if (num == 1) {
-        res.send({
-            message: "La publication a été modifiée avec succès."
-        });
-    } else {
-        res.send({
-            message: `Nous ne pouvons modifier la publication avec id=${id}. Soit la publication n'a pas été trouvée, soit la requête est vide !`
-        });
-    }
-    })
-    .catch(err => {
-        res.status(500).send({
-            message: "Erreur lors du chargement de la publication avec id=" + id
-        });
-    });
-      
-};
 
 // Supprime une publication grâce à son id
 exports.delete = (req, res) => {
-    let id = req.params.id
-    Publication.destroy({
-        where: {id:id}
+    let publicationId = req.params.id;
+    let userIdForDelete = req.userId
+
+    User.findOne(publicationId,)
+
+        .then(publication => {
+            console.log(publication.userId)
+            console.log(userIdForDelete)
+
+            if (publication.userId === userIdForDelete){
+
+                Publication.destroy({
+                    where: {id: publicationId}
+                })
+                .then(num => {
+                    if (num == 1) {
+                      res.send({
+                        message: "Tutorial was deleted successfully!"
+                      });
+                    } else {
+                        res.send({
+                            message: `Cannot delete Tutorial with id=${id}. Maybe Tutorial was not found!`
+                        });
+                    }
+                })
+                .catch(err => {
+                    res.status(500).send({
+                        message: "Could not delete Tutorial with id=" + id
+                    });
+                });
+            } else {
+                res.status(401).send({
+                    message: 'Vous ne pouvez supprimer ce message'
+                })
+            }
+            
+        })
+        .catch(err => {
+            res.status(500).send({
+                message: "Erreur lors de la recherchde de la publication par id avec id=" + id
+            });
+        });
+
+
+    /*Publication.destroy({
+        where: {id: publicationId}
     })
     .then(num => {
         if (num == 1) {
@@ -151,6 +169,7 @@ exports.delete = (req, res) => {
           message: "Could not delete Tutorial with id=" + id
         });
       });
+      */
 }
 
 
