@@ -109,11 +109,10 @@ exports.delete = (req, res) => {
     let publicationId = req.params.id;
     let userIdForDelete = req.userId
 
-    User.findOne(publicationId,)
-
+    Publication.findOne({
+        where: {id: publicationId},
+    })
         .then(publication => {
-            console.log(publication.userId)
-            console.log(userIdForDelete)
 
             if (publication.userId === userIdForDelete){
 
@@ -127,13 +126,13 @@ exports.delete = (req, res) => {
                       });
                     } else {
                         res.send({
-                            message: `Cannot delete Tutorial with id=${id}. Maybe Tutorial was not found!`
+                            message: `Cannot delete Tutorial with id=${publicationId}. Maybe Tutorial was not found!`
                         });
                     }
                 })
                 .catch(err => {
                     res.status(500).send({
-                        message: "Could not delete Tutorial with id=" + id
+                        message: "Could not delete Tutorial with id=" + publicationId
                     });
                 });
             } else {
@@ -145,7 +144,7 @@ exports.delete = (req, res) => {
         })
         .catch(err => {
             res.status(500).send({
-                message: "Erreur lors de la recherchde de la publication par id avec id=" + id
+                message: "Erreur lors de la recherchde de la publication par id avec id=" + publicationId
             });
         });
 
