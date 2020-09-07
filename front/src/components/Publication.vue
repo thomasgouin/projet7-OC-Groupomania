@@ -129,7 +129,7 @@ export default {
         flex-direction: column;
         align-items: center;
         &__img{
-            width: 300px;
+            width: 100%;
         }
         &__texte{
             padding-left: 15px;
@@ -149,6 +149,8 @@ export default {
         }
         &__date{
             margin-top: 15px;
+            padding-left: 15px;
+            text-decoration:underline;
 
         }
     }
@@ -194,6 +196,12 @@ export default {
     max-width: 25px;
     max-height: 25px;
 }
-
+button{
+    transition: none;
+    transition-timing-function: cubic-bezier(.2, 3, .4, 1);
+    &:hover{
+    transform: none;
+  }
+}
     
 </style>

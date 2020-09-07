@@ -4,13 +4,13 @@
       <router-link to="/home">
         <img src="@/assets/Logo-blanc.png" alt="Logo de l'entreprise Groupomania en blanc" class="logo-header">
       </router-link>
-      <div class="navbar-nav mr-auto">
+      <ul class="navbar-nav mr-auto">
         <li class="nav-item">
           <router-link v-if="currentUser" to="/user" class="nav-link navbarGroupomania__link" >wall</router-link>
         </li>
-      </div>
+      </ul>
 
-      <div v-if="!currentUser" class="navbar-nav ml-auto">
+      <ul v-if="!currentUser" class="navbar-nav ml-auto">
         <li class="nav-item">
           <router-link to="/register" class="nav-link navbarGroupomania__link">
             <font-awesome-icon icon="user-plus" />S'inscrire
@@ -21,9 +21,9 @@
             <font-awesome-icon icon="sign-in-alt" />Se connecter
           </router-link>
         </li>
-      </div>
+      </ul>
 
-      <div v-if="currentUser" class="navbar-nav ml-auto">
+      <ul v-if="currentUser" class="navbar-nav ml-auto">
         <li class="nav-item">
           <router-link to="/profile" class="nav-link navbarGroupomania__link">
             <font-awesome-icon icon="user" />
@@ -35,7 +35,7 @@
             <font-awesome-icon icon="sign-out-alt" />Logout
           </a>
         </li>
-      </div>
+      </ul>
     </nav>
 
     <div class="container">

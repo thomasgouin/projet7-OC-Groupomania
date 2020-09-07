@@ -47,6 +47,8 @@ export default {
   margin-top: 80px;
   background-color: #fff;
   color: #042255;
+  margin-left: auto;
+  margin-right: auto;
   border-radius: 25px;
   border: 5px solid #042255;
 }

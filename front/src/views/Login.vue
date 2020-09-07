@@ -13,6 +13,7 @@ Nous utilisons VeeValidate pour vérifier les champs renseignés par l'utilisate
         id="profile-img"
         src="@/assets/profile-pic.png"
         class="profile-img-card"
+        alt="avatar par défaut d'un utilisateur"
       />
       <form name="form" @submit.prevent="handleLogin">
         <div class="form-group">
@@ -23,6 +24,7 @@ Nous utilisons VeeValidate pour vérifier les champs renseignés par l'utilisate
             type="email"
             class="form-control"
             name="email"
+            id="email"
           />
           <div
             v-if="errors.has('email')"
@@ -38,15 +40,16 @@ Nous utilisons VeeValidate pour vérifier les champs renseignés par l'utilisate
             type="password"
             class="form-control"
             name="password"
+            id="password"
           />
           <div
             v-if="errors.has('password')"
             class="alert alert-danger"
             role="alert"
-          >Votre mot de passe est oblicatoire pour se connecter</div>
+          >Votre mot de passe est obligatoire pour se connecter</div>
         </div>
         <div class="form-group">
-          <button class="btn btn-primary btn-block" :disabled="loading">
+          <button class="btn btn-primary btn-block" :disabled="loading" id="btn-connexion">
             <span v-show="loading" class="spinner-border spinner-border-sm"></span>
             <span>Se connecter</span>
           </button>
@@ -121,7 +124,7 @@ export default {
 };
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
 label {
   display: block;
   margin-top: 10px;
@@ -151,7 +154,7 @@ input{
   box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
 }
 
-button{
+#btn-connexion{
   background-color: #F64C71;
   border: none;
   transition: all .5s;

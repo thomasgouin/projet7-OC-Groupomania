@@ -50,9 +50,6 @@ export default {
 </script>
 
 
-
-
-
 <style lang="scss">
 .container{
   display: flex;
@@ -61,6 +58,7 @@ export default {
 .jumbotron{
   background-color: #fff;
   max-width: 500px;
+  border: none;
 }
 .button{
   background-color: #F64C71;

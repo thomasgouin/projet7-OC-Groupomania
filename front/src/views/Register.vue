@@ -5,6 +5,7 @@
             id="profile-img"
             src="@/assets/profile-pic.png"
             class="profile-img-card"
+            alt="avatar par défaut d'un utilisateur"
             />
             <form name="form" @submit.prevent="handleRegister">
                 <div v-if="!successful">
@@ -16,6 +17,7 @@
                         type="text"
                         class="form-control"
                         name="firstname"
+                        id="firstname"
                         />
                         <div
                             v-if="submitted && errors.has('firstname')"
@@ -31,6 +33,7 @@
                         type="text"
                         class="form-control"
                         name="lastname"
+                        id="lastname"
                         />
                         <div
                             v-if="submitted && errors.has('lastname')"
@@ -46,6 +49,7 @@
                         type="email"
                         class="form-control"
                         name="email"
+                        id="email"
                         />
                         <div
                             v-if="submitted && errors.has('email')"
@@ -61,6 +65,7 @@
                         type="password"
                         class="form-control"
                         name="password"
+                        id="password"
                         />
                         <div
                             v-if="submitted && errors.has('password')"
@@ -69,7 +74,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <button class="btn btn-primary btn-block button">S'enregistrer</button>
+                        <button class="btn btn-primary btn-block button" id="btn-inscription">S'enregistrer</button>
                     </div>
                 </div>
             </form>
@@ -162,7 +167,7 @@ input{
   box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
 }
 
-.button{
+#btn-inscription{
   background-color: #F64C71;
   border: none;
   transition: all .5s;
