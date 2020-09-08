@@ -1,9 +1,13 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const path = require('path');
+const cors = require("cors");
 
 const app = express();
 
+/*var corsOptions = {
+  origin: "http://localhost:8080"
+};*/
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content, Accept, Content-Type, Authorization');
@@ -26,12 +30,12 @@ app.use('/images', express.static(path.join(__dirname, 'images')));
 const db = require("./models");
 const Role = db.role;
 
-db.sequelize.sync();
+//db.sequelize.sync();
 //force: true will drop the table if it already exists
-//db.sequelize.sync({force: true}).then(() => {
-  //console.log('Drop and Resync Database with { force: true }');
-  //initial();
-//});
+db.sequelize.sync({force: true}).then(() => {
+  console.log('Drop and Resync Database with { force: true }');
+  initial();
+});
 
 function initial() {
     Role.create({
@@ -45,8 +49,14 @@ function initial() {
     });
   }
 
+// simple route
+app.get("/", (req, res) => {
+  res.json({ message: "Welcome to bezkoder application." });
+});
+
 // routes
 require('./routes/auth.routes')(app);
+require('./routes/user.routes')(app);
 require("./routes/publication.routes")(app);
 require('./routes/comment.routes')(app);
 

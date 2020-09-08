@@ -1,6 +1,3 @@
-//Modèle utilisateur défini à travers Sequelize. 
-//A noter que les colonnes id, createdAt et modifiedAt seront créées automatiquement
-
 module.exports = (sequelize, Sequelize) => {
     const User = sequelize.define("users", {
       firstname: {

@@ -1,6 +1,3 @@
-//Fichier principal pour Sequlize Nous y intégrons les différents 
-//modèles et définissons les liens entre eux. 
-
 const config = require("../config/db.config.js");
 
 const Sequelize = require("sequelize");
@@ -32,10 +29,6 @@ db.role = require("../models/role.model.js")(sequelize, Sequelize);
 db.publication = require("../models/publication.model.js")(sequelize, Sequelize);
 db.comments = require("../models/comments.model.js")(sequelize, Sequelize);
 
-/*La relation role / utilisateur est ici de plusieurs à plusieurs : 
-  - un utilisateur peut avoir plusieurs rôles,
-  - un rôle peut être détenu par plusieurs utilisateurs. 
-*/
 db.role.belongsToMany(db.user, {
   through: "user_roles",
   foreignKey: "roleId",
@@ -47,12 +40,6 @@ db.user.belongsToMany(db.role, {
   otherKey: "roleId"
 });
 
-/* La relation des publications avec l'utilisateur et les commentaires
- - les utilisateurs peuvent faire plusieurs publications,
- - une publication n'appartient qu'à un utilisateur, 
- - une publication peut avoir plusieurs commentaires
- - un commentaire n'appartient qu'à une seule publication
-*/
 db.user.hasMany(db.publication, {
   foreignKey: 'userId',
   
@@ -66,10 +53,6 @@ db.comments.belongsTo(db.publication, {
   as: "publication",
 })
 
-/* relation des commentaires avec les utilisateurs 
-  - Un utilisateur peut faire plusieurs commentaires,
-  - Un commentaire n'appartient qu'à un seul utilisateur
-*/
 db.user.hasMany(db.comments, {
   foreignKey: 'userId'
   

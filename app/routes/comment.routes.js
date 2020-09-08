@@ -8,7 +8,7 @@ module.exports = app => {
     // Route pour créer un nouveau commentaire
     router.post("/", commentaires.createComment);
   
-    // Route pour supprimer un commentaire avec le middleware permettant de vérifier l'authentification de l'utilisateur
+    // Route pour supprimer un commentaire
     router.delete("/:id", [authJwt.verifyToken], commentaires.deleteComment);
   
   
