@@ -7,7 +7,7 @@ module.exports = app => {
   
     var router = require("express").Router();
   
-    // Route pour créer une nouvelle publication
+    // Route pour créer une nouvelle publication avec le middleware multer qui vient gérer les images et gifs
     router.post("/", multer, publications.create);
   
     // Route pour récupérer toutes les publications

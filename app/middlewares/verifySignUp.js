@@ -4,22 +4,24 @@ const User = db.user;
 
 checkDuplicateEmail = (req, res, next) => {
   
-    // Email
+    // On cherche l'eamil dans la base de données
     User.findOne({
         where: {
             email: req.body.email
         }
     }).then(user => {
+        //Si on trouve déjà un mail, on renvoie une erreur
         if (user) {
             res.status(400).send({
                 message: "Erreur, ce mail est déjà utilisé, merci d'en choisir un autre"
             });
             return;
         }
+        //Sinon on passe à la suite
         next();
     });
 };
-
+//Pour vérifier si les roles existent 
 checkRolesExisted = (req, res, next) => {
     if (req.body.roles) {
         for (let i = 0; i < req.body.roles.length; i++) {

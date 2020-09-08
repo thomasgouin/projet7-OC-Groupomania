@@ -19,7 +19,7 @@ exports.create = (req, res) => {
             if (user !== null) {
                 //Récupération du corps du post
                 let title = req.body.title;
-                
+                //On crée l'url de la piece jointe si la piece jointe existe
                 if (req.file != undefined) {
                     attachmentURL = `${req.protocol}://${req.get('host')}/images/${req.file.filename}`;
                     
@@ -27,16 +27,15 @@ exports.create = (req, res) => {
                 else {
                     attachmentURL == null
                 }
+                //Si nous avons un texte et une piece jointe, 
                 if (title !== 'null' && attachmentURL !== null) {
-                    console.log(attachmentURL)
-                    console.log(title)
+                    //nous créons un objet avec les renseignement nécessaires
                     const publication = {
                         title: title,
                         attachment: attachmentURL,
                         userId: id
                     }
-                    console.log(publication);
-
+                    //nous utilisons Sequelize de demander de créer une publication
                     Publication.create(publication)
                         .then((data) => {
                             res.status(201).json(data)
@@ -56,7 +55,8 @@ exports.create = (req, res) => {
 
 
 
-// Retourne l'ensemble des publications avec une option de filtrage par utilisateur
+// Retourne l'ensemble des publications en incluant le nom et prénom de l'auteur et 
+//l'ensemble des commentaires, eux aussi avec leur auteur. 
 exports.findAll = (req, res) => {
     
     Publication.findAll({
@@ -74,6 +74,8 @@ exports.findAll = (req, res) => {
                 }
             }
         ],
+        //On demande de renvoyer les résultats dans l'ordre decroissant 
+        //pour afficher les publications les plus récentes en premier. 
         order: [['createdAt', 'DESC']]
     })
         .then(data =>{
@@ -108,7 +110,7 @@ exports.findOne = (req, res) => {
 exports.delete = (req, res) => {
     let publicationId = req.params.id;
     let userIdForDelete = req.userId
-
+    //On recherche l'utilisateur à l'origine de la suppresion, nous voulons l'id et son rôle. 
     User.findOne({
         where: {id: userIdForDelete},
         include:[   
@@ -119,31 +121,31 @@ exports.delete = (req, res) => {
     })
     .then(user =>{
         let userForDeleteRole = user.roles[0].name;
-
+        //Nous sélectionnons la publication avec l'id qui est renvoyer dans les paramètres de l'URL.
         Publication.findOne({
             where: {id: publicationId},
         })
             .then(publication => {
-    
+                //Nous n'autorisons la suppressions que si l'utisateur est admin ou auteur de la publication
                 if (publication.userId === userIdForDelete || userForDeleteRole === "admin"){
-    
+                    //Nous utilisons sequelize pour supprimer la publication
                     Publication.destroy({
                         where: {id: publicationId}
                     })
                     .then(num => {
                         if (num == 1) {
                           res.send({
-                            message: "Tutorial was deleted successfully!"
+                            message: "La publication a été supprimée avec succès!"
                           });
                         } else {
                             res.send({
-                                message: `Cannot delete Tutorial with id=${publicationId}. Maybe Tutorial was not found!`
+                                message: `la publication avec l'id : ${publicationId} n'a pas été supprimée.`
                             });
                         }
                     })
                     .catch(err => {
                         res.status(500).send({
-                            message: "Could not delete Tutorial with id=" + publicationId
+                            message: "la publication avec l'id : ${publicationId} n'a pas été supprimée."
                         });
                     });
                 } else {
