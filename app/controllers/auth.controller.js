@@ -7,43 +7,69 @@ const Op = db.Sequelize.Op;
 
 let jwt = require("jsonwebtoken");
 let bcrypt = require("bcryptjs");
+const emailRegex = /^[a-zA-ZéèëïÏËÉÈàç\-]{2,30}@groupomania.com$/;
+const passwordRegex  = /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])([a-zA-Z0-9]{8,15})$/;
 
 exports.signup = (req, res) => {
+
+  const firstname = req.body.firstname;
+  const lastname = req.body.lastname;
+  const email = req.body.email;
+  const password = req.body.password;
+
+  if (firstname === null || lastname === null || email === null || password === null) {
+    return res.status(400).send({ message: "Veillez renseigner tous les champs" });
+  }
+
+  if (firstname.length <= 2  || firstname.length >= 15) {
+      return res.status(400).send({ message: "Votre prénom doit avoir entre 3 et 15 caractères" });
+  }
+
+  if (lastname.length <= 2 || lastname.length >= 15) {
+      return res.status(400).send({ message: "Votre nom doit avoir entre 3 et 15 caractères" });
+  }
+
+  if (!emailRegex.test(email)) {
+      return res.status(400).send({ message: "Votre adresse email doit être de type prenom@groupomania.com" });
+  }
+
+  if (!passwordRegex.test(password)) {
+      return res.status(400).send({ message: "Votre mot de passe doit contenir au moins 1 chiffre, 1 lettre majuscule, 1 lettre minuscule et compter au moins 8 caractères" });
+  }
   // Save User to Database
-  User.create({
-    firstname: req.body.firstname,
-    lastname: req.body.lastname,
-    email: req.body.email,
-    password: bcrypt.hashSync(req.body.password, 8)
-  })
-    .then(user => {
-      if (req.body.roles) {
-        Role.findAll({
-          where: {
-            name: {
-              [Op.or]: req.body.roles
+    User.create({
+      firstname: firstname,
+      lastname: lastname,
+      email: email,
+      password: bcrypt.hashSync(password, 8)
+    })
+      .then(user => {
+        if (req.body.roles) {
+          Role.findAll({
+            where: {
+              name: {
+                [Op.or]: req.body.roles
+              }
             }
-          }
-        }).then(roles => {
-          user.setRoles(roles).then(() => {
+          }).then(roles => {
+            user.setRoles(roles).then(() => {
+              res.send({ message: "L'utilisateur a été enregistré avec succès" });
+            });
+          });
+        } else {
+          // user role = 1
+          user.setRoles([1]).then(() => {
             res.send({ message: "L'utilisateur a été enregistré avec succès" });
           });
-        });
-      } else {
-        // user role = 1
-        user.setRoles([1]).then(() => {
-          res.send({ message: "L'utilisateur a été enregistré avec succès" });
-        });
-      }
-    })
-    .catch(err => {
-      res.status(500).send({ message: err.message });
-    });
+        }
+      })
+      .catch(err => {
+        res.status(500).send({ message: err.message });
+      }); 
 };
 
 exports.signin = (req, res) => {
-    //on recherche si le mail rentré correspond à un mail de la bdd
-    User.findOne({
+      User.findOne({
         where: {
             email: req.body.email
         }
@@ -89,10 +115,10 @@ exports.signin = (req, res) => {
                 accessToken: token
             });
         });
-    })
-    .catch(err => {
-    res.status(500).send({ message: err.message });
-    });
+      })
+      .catch(err => {
+      res.status(500).send({ message: err.message });
+      });   
 };
 
 exports.delete = (req,res)=>{
