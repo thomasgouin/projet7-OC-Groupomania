@@ -73,6 +73,7 @@ export default {
 
 <style lang="scss">
 .jumbotron-profile{
+  margin-top: 50px;
   border: solid #042255 3px;
   max-width: 500px;
   background-color: #fff;

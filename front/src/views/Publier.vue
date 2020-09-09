@@ -6,7 +6,7 @@
         <div class="input-group ">
           <label for="title">- Que voulez-vous nous dire ? -</label>
           <br />
-          <textarea v-model="contentPost.title" class="input-text" rows="3" id="title" type="text" />
+          <textarea v-model="contentPost.title" class="input-text" rows="5" id="title" type="text" />
         </div>
         
         <div>
@@ -71,8 +71,24 @@ export default {
 };
 </script>
 
-<style scope>
+<style lang="scss">
+h3{
+  color:#e70435;
+}
 .input-text {
   width: 100%;
+}
+.btn-poster{
+  background-color:#e70435;
+  border: #e70435 solid 2px;
+  border-radius: 25px;
+  width: 200px;
+  transition: all .5s;
+  transition-timing-function: cubic-bezier(.2, 3, .4, 1);
+  &:hover{
+    transform: scale(1.1, 1.1);
+    background-color: #e70435;
+    border:none;
+  }
 }
 </style>
