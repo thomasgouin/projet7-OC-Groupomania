@@ -32,6 +32,8 @@ Frontend :
     - créer un fichier auth.config.js 
     - créer un fichier db.config.js
 
+    -créer un dossier images dans le dosiser app pour enregistrer les images
+
     Sur le fichier db.config.js renseigner les données suivantes : 
 
     module.exports = {
