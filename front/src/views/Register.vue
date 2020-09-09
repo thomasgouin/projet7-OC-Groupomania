@@ -13,7 +13,7 @@
                         <label for="firstname">Votre prénom</label>
                         <input
                         v-model="user.firstname"
-                        v-validate="'required|min:3|max:20'"
+                        v-validate="'required|min:2|max:20'"
                         type="text"
                         class="form-control"
                         name="firstname"
@@ -29,7 +29,7 @@
                         <label for="lastname">Votre nom</label>
                         <input
                         v-model="user.lastname"
-                        v-validate="'required|min:3|max:20'"
+                        v-validate="'required|min:2|max:20'"
                         type="text"
                         class="form-control"
                         name="lastname"
@@ -168,13 +168,13 @@ input{
 }
 
 #btn-inscription{
-  background-color: #F64C71;
+  background-color: #e70435;
   border: none;
   transition: all .5s;
   transition-timing-function: cubic-bezier(.2, 3, .4, 1);
   &:hover{
     transform: scale(1.1, 1.1);
-    background-color: #F64C71;
+    background-color: #e70435;
   }
 }
 

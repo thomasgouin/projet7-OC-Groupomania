@@ -84,7 +84,7 @@ img{
 
 }
 strong{
-  color:#F64C71; 
+  color:#e70435; 
 }
 .profile-info{
   border: solid 3px #04225533;
@@ -97,14 +97,14 @@ strong{
   height: 40px;
   width: 100%;
   border-radius: 25px;
-  background-color: #F64C71;
+  background-color: #e70435;
   border: none;
   color: #fff;
   transition: all .5s;
   transition-timing-function: cubic-bezier(.2, 3, .4, 1);
   &:hover{
     transform: scale(1.1, 1.1);
-    background-color: #F64C71;
+    background-color: #e70435;
   }
 }
 </style>

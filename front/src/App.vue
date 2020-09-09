@@ -71,7 +71,7 @@ export default {
 <style lang="scss">
 .navbarGroupomania{
   background-color: #042255;
-  border-bottom: solid 4px #F64C71;
+  border-bottom: solid 4px #e70435;
   &__link{
     color: #FFD7D7;
     &:hover{

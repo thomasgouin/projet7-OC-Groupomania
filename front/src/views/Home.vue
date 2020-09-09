@@ -52,7 +52,7 @@ export default {
   border-radius: 25px;
   border: 5px solid #042255;
   &__h3{
-    color: #F64C71;
+    color: #e70435;
     font-size: 30px;
     padding: 30px 20px;
   }

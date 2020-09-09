@@ -155,13 +155,13 @@ input{
 }
 
 #btn-connexion{
-  background-color: #F64C71;
+  background-color: #e70435;
   border: none;
   transition: all .5s;
   transition-timing-function: cubic-bezier(.2, 3, .4, 1);
   &:hover{
     transform: scale(1.1, 1.1);
-    background-color: #F64C71;
+    background-color: #e70435;
   }
 }
 
